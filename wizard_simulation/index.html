@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simulación de Exportación - Wizard</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <h1>Simulación de Exportación - Wizard</h1>
+  <div class="wizard">
+    <!-- Step 1: Registro Empresa -->
+    <div class="step active" data-step="1">
+      <h2>Registro Empresa</h2>
+      <label for="empresa-nombre">Nombre de la empresa</label>
+      <input type="text" id="empresa-nombre" required />
+      <label for="empresa-nit">NIT</label>
+      <input type="text" id="empresa-nit" required />
+      <label for="empresa-direccion">Dirección</label>
+      <input type="text" id="empresa-direccion" required />
+      <label for="empresa-contacto">Contacto</label>
+      <input type="text" id="empresa-contacto" required />
+      <label for="empresa-email">E-mail</label>
+      <input type="email" id="empresa-email" required />
+      <div class="error" id="error-step-1"></div>
+    </div>
+
+    <!-- Step 2: Selección Básica -->
+    <div class="step" data-step="2">
+      <h2> Selección Básica</h2>
+      <label for="producto">Producto del catálogo</label>
+      <select id="producto" required>
+        <option value="">-- Seleccione un producto --</option>
+        <option value="Producto A">Producto A</option>
+        <option value="Producto B">Producto B</option>
+        <option value="Producto C">Producto C</option>
+      </select>
+      <label for="cantidad">Cantidad (toneladas)</label>
+      <input type="number" id="cantidad" min="1" required />
+      <label for="pais-destino">País de destino</label>
+      <select id="pais-destino" required>
+        <option value="">-- Seleccione un país --</option>
+        <option value="País 1" data-costo="150">Paris</option>
+        <option value="País 2" data-costo="300">España</option>
+        <option value="País 3" data-costo="250">Italia</option>
+      </select>
+      <div id="resumen-envio" style="margin-top:10px; font-style: italic; color: #333;"></div>
+      <div class="error" id="error-step-2"></div>
+    </div>
+
+    <!-- Step 3: Documentación -->
+    <div class="step" data-step="3">
+      <h2>Documentación</h2>
+      <label>Documentos disponibles (marque los que correspondan):</label>
+      <input type="checkbox" id="doc-factura" /> <label for="doc-factura" style="display:inline;">Factura comercial</label><br />
+      <input type="checkbox" id="doc-empaque" /> <label for="doc-empaque" style="display:inline;">Lista de empaque</label><br />
+      <input type="checkbox" id="doc-certificado" /> <label for="doc-certificado" style="display:inline;">Certificado de origen</label>
+      <div class="error" id="error-step-3"></div>
+    </div>
+
+    <!-- Step 4: Transporte -->
+    <div class="step" data-step="4">
+      <h2> Transporte</h2>
+      <label for="transporte">Método de transporte</label>
+      <select id="transporte" required>
+        <option value="">-- Seleccione un método --</option>
+        <option value="Marítimo">Marítimo</option>
+        <option value="Aéreo">Aéreo</option>
+        <option value="Terrestre">Terrestre</option>
+      </select>
+      <div class="error" id="error-step-4"></div>
+    </div>
+
+    <!-- Step 5: Embalaje -->
+    <div class="step" data-step="5">
+      <h2> Embalaje</h2>
+      <label>¿El embalaje cumple con estándares internacionales?</label><br />
+      <input type="radio" id="embalaje-si" name="embalaje" value="Sí" /> <label for="embalaje-si" style="display:inline;">Sí</label><br />
+      <input type="radio" id="embalaje-no" name="embalaje" value="No" /> <label for="embalaje-no" style="display:inline;">No</label>
+      <div class="error" id="error-step-5"></div>
+    </div>
+
+    <!-- Step 6: Aduanas -->
+    <div class="step" data-step="6">
+      <h2> Aduanas</h2>
+      <label>¿Aprobación de permisos y trámites aduaneros?</label><br />
+      <input type="radio" id="aduanas-si" name="aduanas" value="Sí" /> <label for="aduanas-si" style="display:inline;">Sí</label><br />
+      <input type="radio" id="aduanas-no" name="aduanas" value="No" /> <label for="aduanas-no" style="display:inline;">No</label>
+      <div class="error" id="error-step-6"></div>
+    </div>
+
+    <!-- Step 7: Seguimiento Envío -->
+    <div class="step" data-step="7">
+      <h2> Seguimiento Envío</h2>
+      <label>Barra de progreso del envío</label>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <button id="start-envio">Iniciar Envío</button>
+      <div class="error" id="error-step-7"></div>
+    </div>
+
+    <!-- Step 8: Confirmación -->
+    <div class="step" data-step="8">
+      <h2> Confirmación</h2>
+      <label>¿El destinatario recibió correctamente la mercancía?</label><br />
+      <input type="radio" id="confirmacion-si" name="confirmacion" value="Sí" /> <label for="confirmacion-si" style="display:inline;">Sí</label><br />
+      <input type="radio" id="confirmacion-no" name="confirmacion" value="No" /> <label for="confirmacion-no" style="display:inline;">No</label>
+      <div class="error" id="error-step-8"></div>
+    </div>
+
+    <!-- Step 9: Resumen Final -->
+    <div class="step" data-step="9">
+      <h2> Resumen Final</h2>
+      <div class="summary" id="summary"></div>
+      <button id="btn-imprimir">Imprimir</button>
+      <button id="btn-descargar">Descargar</button>
+    </div>
+
+    <!-- Step 10: Reiniciar -->
+    <div class="step" data-step="10">
+      <h2> Reiniciar Simulación</h2>
+      <button id="btn-reiniciar">Reiniciar</button>
+    </div>
+
+    <div class="buttons">
+      <button id="prevBtn" disabled>Anterior</button>
+      <button id="nextBtn">Siguiente</button>
+    </div>
+  </div>
+
+    <script type="module" src="js/wizard.js"></script>
+  </body>
+</html>
